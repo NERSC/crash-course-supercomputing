@@ -1,7 +1,7 @@
-CC = icc
-F90 = ifort
-MPICC = mpicc
-MPIF90 = mpif90
+CC = cc
+F90 = ftn
+MPICC = cc
+MPIF90 = ftn
 
 OMP_FLAGS = -openmp
 OPT_FLAGS = -g

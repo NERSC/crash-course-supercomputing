@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
   vslNewStream(&stream, VSL_BRNG_MT2203+rank, 1);
 
   for (i = 0; i < my_trials; i++) {
-    vdRngUniform(VSL_METHOD_DUNIFORM_STD, stream, 2, xy, 0.0, 1.0);
+    vdRngUniform(VSL_RNG_METHOD_UNIFORMBITS_STD, stream, 2, xy, 0.0, 1.0);
     if ((xy[0]*xy[0] + xy[1]*xy[1]) <= r2)
       Ncirc++;
   }

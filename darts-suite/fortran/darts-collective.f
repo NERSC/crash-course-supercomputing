@@ -35,7 +35,10 @@
           if (rank .eq. manager) then
               Ncirc = temp
               pi = 4.0*((1.0*Ncirc)/(1.0*num_trials))
-              print*, ' For ', num_trials, ' trials, pi = ', pi
+              print*, '     '
+              print*, '     Computing pi using MPI collectives:'
+              print*, '     For ', num_trials, ' trials, pi = ', pi
+              print*, '     '
           end if
           call MPI_Finalize(mpierr)
         end

@@ -1,6 +1,8 @@
 /* Compute pi using OpenMP */
 #include "lcgenerator.h"
 #include <omp.h>
+#include <stdio.h>
+
 static long num_trials = 1000000;
 
 int main(int argc, char **argv) {
@@ -24,7 +26,9 @@ int main(int argc, char **argv) {
 }
 
   pi = 4.0 * ((double)Ncirc)/((double)num_trials);
-  printf("\n For %ld trials, pi = %f\n", num_trials, pi);
+  printf("\n \t Computing pi using OpenMP: \n");
+  printf("\t For %ld trials, pi = %f\n", num_trials, pi);
+  printf("\n");
 
   return 0;
 }

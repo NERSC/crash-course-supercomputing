@@ -1,6 +1,7 @@
 /* Compute pi using MPI and threaded MKL for random number generator */
 #include <mpi.h>
 #include <mkl_vsl.h>
+#include <stdio.h>
 
 static long num_trials = 1000000;
 
@@ -39,7 +40,9 @@ int main(int argc, char **argv) {
       Ncirc += temp;
     }
     pi = 4.0 * ((double)Ncirc)/((double)num_trials);
-    printf("\n For %ld trials, pi = %f\n", num_trials, pi);
+    printf("\n \t Computing pi using MPI and threaded MKL for random number generator: \n");
+    printf("\t For %ld trials, pi = %f\n", num_trials, pi);
+    printf("\n");
   } else {
     MPI_Send(&Ncirc, 1, MPI_LONG, manager, rank, MPI_COMM_WORLD);
   }

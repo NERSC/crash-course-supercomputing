@@ -27,7 +27,7 @@
 !$OMP critical (randoms)
             x = lcgrandom()
             y = lcgrandom()
-!$OMP end critical
+!$OMP end critical (randoms)
             if ((x*x + y*y) .le. r2) then
               Ncirc = Ncirc+1
             end if
@@ -40,7 +40,10 @@
           if (rank .eq. manager) then
               Ncirc = temp
               pi = 4.0*((1.0*Ncirc)/(1.0*num_trials))
-              print*, ' For ', num_trials, ' trials, pi = ', pi
+              print*, '     '
+              print*, '     Computing pi using hybrid MPI/OpenMP:'
+              print*, '     For ', num_trials, ' trials, pi = ', pi
+              print*, '     '
           end if
           call MPI_Finalize(mpierr)
         end

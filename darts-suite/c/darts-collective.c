@@ -1,6 +1,7 @@
 /* Compute pi using MPI collectives */
 #include "lcgenerator.h"
 #include <mpi.h>
+#include <stdio.h>
 
 static long num_trials = 1000000;
 
@@ -34,7 +35,9 @@ int main(int argc, char **argv) {
   if (rank == manager) {
     Ncirc = temp;
     pi = 4.0 * ((double)Ncirc)/((double)num_trials);
-    printf("\n For %ld trials, pi = %f\n", num_trials, pi);
+    printf("\n \t Computing pi using MPI collectives: \n");
+    printf("\t For %ld trials, pi = %f\n", num_trials, pi);
+    printf("\n");
   } 
   MPI_Finalize();
   return 0;

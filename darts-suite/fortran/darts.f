@@ -31,7 +31,10 @@
           end do
 
           pi = 4.0*((1.0*Ncirc)/(1.0*num_trials))
-          print*, ' For ', num_trials, ' trials, pi = ', pi
+          print*, '	'
+          print*, '	Computing pi in serial:		'
+          print*, ' 	For ', num_trials, ' trials, pi = ', pi
+          print*, '	'
 
         end
 

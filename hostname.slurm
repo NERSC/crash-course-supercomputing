@@ -7,9 +7,9 @@
 #SBATCH --export=NONE
 
 echo "/bin/hostname"
-#To launch job on the service job 
+#To launch job on the service (MOM) node - CAREFUL
 /bin/hostname
 
 echo "aprun -n 48 -N 24 /bin/hostname"
-#To launch job on the requested compute nodes
+#To launch job on the allocated compute nodes
 aprun -n 48 -N 24 /bin/hostname

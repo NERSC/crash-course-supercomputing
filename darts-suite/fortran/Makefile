@@ -1,9 +1,9 @@
-CC = icc
-F90 = ifort
-MPICC = mpicc
-MPIF90 = mpif90
+CC = cc
+F90 = ftn
+MPICC = cc
+MPIF90 = ftn
 
-OMP_FLAGS = -openmp
+OMP_FLAGS = -qopenmp
 OPT_FLAGS = -g
 
 OBJS = darts darts-mpi darts-collective darts-omp darts-hybrid 

@@ -4,22 +4,24 @@
 # Script to run your darts codes for all possible iterations on one node
 #
 # Run this script in an interactive job, e.g.,
-# qsub -I -W group_list=courses01 -lwalltime=1:00:00,nodes=1:ppn=12 -X -V
+# salloc -t 00:30:00 -N 1 -q debug
 #
 
 EXECS="darts-mpi darts-collective darts-omp darts-hybrid"
 # You will need to change the name of the directory where your code is
-MYDIR=/home/rebecca/training/2012-10/fortran
-#MYDIR=/home/rebecca/training/2012-10/c
+MYDIR=/global/homes/r/rjhb/test/Developing-with-MPI-and-OpenMP/darts-suite/c
+#MYDIR=/global/homes/r/rjhb/test/Developing-with-MPI-and-OpenMP/darts-suite/fortran
 MPIRUN=srun
 
 # Also change the scratch directory
-MYSCRATCH=/scratch/director100/rebecca/
+MYSCRATCH=$SCRATCH
 
 for f in ${EXECS};
 do
     cp ${MYDIR}/$f ${MYSCRATCH}
 done
+
+cd ${MYSCRATCH}
 
 echo 'Simple MPI'
 for i in `seq 1 12`;
@@ -34,7 +36,7 @@ echo 'MPI collectives'
 for i in `seq 1 12`;
 do
     echo
-    echo $MPIRUN ' -np' $i './darts-collective'
+    echo $MPIRUN ' -n' $i './darts-collective'
     time $MPIRUN -n $i ./darts-collective
 done
 
@@ -53,7 +55,7 @@ echo 'Hybrid'
 for i in `seq 1 12`;
 do
     echo
-    echo 'OMP_NUM_THREADS =' $i $MPIRUN ' -np 1 ./darts-hybrid'
+    echo 'OMP_NUM_THREADS =' $i $MPIRUN ' -n 1 ./darts-hybrid'
     export OMP_NUM_THREADS=$i 
     time $MPIRUN -n 1 ./darts-hybrid
 done
@@ -61,7 +63,7 @@ done
 for i in `seq 1 6`;
 do
     echo
-    echo 'OMP_NUM_THREADS =' $i $MPIRUN ' -np 2 ./darts-hybrid'
+    echo 'OMP_NUM_THREADS =' $i $MPIRUN ' -n 2 ./darts-hybrid'
     export OMP_NUM_THREADS=$i 
     time $MPIRUN -n 2 ./darts-hybrid
 done

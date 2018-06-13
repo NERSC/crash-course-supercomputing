@@ -3,7 +3,7 @@ F90 = ftn
 MPICC = cc
 MPIF90 = ftn
 
-OMP_FLAGS = -openmp 
+OMP_FLAGS = -qopenmp 
 OPT_FLAGS = -g
 # from http://software.intel.com/sites/products/mkl/MKL_Link_Line_Advisor.html
 MKL_FLAGS = -Wl,--start-group ${MKLROOT}/lib/intel64/libmkl_intel_lp64.a ${MKLROOT}/lib/intel64/libmkl_sequential.a ${MKLROOT}/lib/intel64/libmkl_core.a -Wl,--end-group -lpthread -lm

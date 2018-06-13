@@ -11,6 +11,7 @@ EXECS="darts-mpi darts-collective darts-omp darts-hybrid"
 # You will need to change the name of the directory where your code is
 MYDIR=/home/rebecca/training/2012-10/fortran
 #MYDIR=/home/rebecca/training/2012-10/c
+MPIRUN=srun
 
 # Also change the scratch directory
 MYSCRATCH=/scratch/director100/rebecca/
@@ -24,8 +25,8 @@ echo 'Simple MPI'
 for i in `seq 1 12`;
 do
     echo
-    echo 'mpirun -np' $i './darts-mpi'
-    mpirun -np $i ./darts-mpi
+    echo $MPIRUN ' -n' $i './darts-mpi'
+    time $MPIRUN -n $i ./darts-mpi
 done
 
 echo
@@ -33,8 +34,8 @@ echo 'MPI collectives'
 for i in `seq 1 12`;
 do
     echo
-    echo 'mpirun -np' $i './darts-collective'
-    mpirun -np $i ./darts-collective
+    echo $MPIRUN ' -np' $i './darts-collective'
+    time $MPIRUN -n $i ./darts-collective
 done
 
 echo
@@ -44,7 +45,7 @@ do
     echo
     echo 'OMP_NUM_THREADS =' $i './darts-mpi'
     export OMP_NUM_THREADS=$i 
-    ./darts-omp
+    time ./darts-omp
 done
 
 echo
@@ -52,33 +53,33 @@ echo 'Hybrid'
 for i in `seq 1 12`;
 do
     echo
-    echo 'OMP_NUM_THREADS =' $i 'mpirun -np 1 ./darts-hybrid'
+    echo 'OMP_NUM_THREADS =' $i $MPIRUN ' -np 1 ./darts-hybrid'
     export OMP_NUM_THREADS=$i 
-    mpirun -np 1 ./darts-hybrid
+    time $MPIRUN -n 1 ./darts-hybrid
 done
 
 for i in `seq 1 6`;
 do
     echo
-    echo 'OMP_NUM_THREADS =' $i 'mpirun -np 2 ./darts-hybrid'
+    echo 'OMP_NUM_THREADS =' $i $MPIRUN ' -np 2 ./darts-hybrid'
     export OMP_NUM_THREADS=$i 
-    mpirun -np 2 ./darts-hybrid
+    time $MPIRUN -n 2 ./darts-hybrid
 done
 
 for i in `seq 1 4`;
 do
     echo
-    echo 'OMP_NUM_THREADS =' $i 'mpirun -np 3 ./darts-hybrid'
+    echo 'OMP_NUM_THREADS =' $i $MPIRUN ' -n 3 ./darts-hybrid'
     export OMP_NUM_THREADS=$i 
-    mpirun -np 3 ./darts-hybrid
+    time $MPIRUN -n 3 ./darts-hybrid
 done
 
 for i in `seq 1 3`;
 do
     echo
-    echo 'OMP_NUM_THREADS =' $i 'mpirun -np 4 ./darts-hybrid'
+    echo 'OMP_NUM_THREADS =' $i $MPIRUN ' -n 4 ./darts-hybrid'
     export OMP_NUM_THREADS=$i 
-    mpirun -np 4 ./darts-hybrid
+    time $MPIRUN -n 4 ./darts-hybrid
 done
 
 for j in `seq 5 6`;
@@ -86,8 +87,8 @@ do
     for i in `seq 1 2`;
     do
         echo
-        echo 'OMP_NUM_THREADS =' $i 'mpirun -np' $j './darts-hybrid'
-        mpirun -np $j ./darts-hybrid
+        echo 'OMP_NUM_THREADS =' $i $MPIRUN ' -n' $j './darts-hybrid'
+        time $MPIRUN -n $j ./darts-hybrid
     done
 done
 

@@ -1,8 +1,8 @@
-// Numerical approximation to Pi
+// Numerical approximation to Pi with MPI
 // Erik Palmer 6/14/2004
 //
 // To Compile:
-// CC darts.cpp -o darts.ex
+// CC darts-mpi.cpp -o darts-mpi.ex
 
 #include <iostream>
 #include <random>

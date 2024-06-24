@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
   long i;
   long Ncirc = 0;
   double pi, x, y;
-  double r = 1.0; // radius of circle
+  double r = 1.0; /* radius of circle */
   double r2 = r*r;
 
   int rank, size, manager = 0;

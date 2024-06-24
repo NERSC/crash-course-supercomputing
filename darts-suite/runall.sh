@@ -8,9 +8,11 @@
 #
 
 EXECS="darts-mpi darts-collective darts-omp darts-hybrid"
-# You will need to change the name of the directory where your code is
-MYDIR=/global/homes/r/rjhb/test/Developing-with-MPI-and-OpenMP/darts-suite/c
-#MYDIR=/global/homes/r/rjhb/test/Developing-with-MPI-and-OpenMP/darts-suite/fortran
+# You will need to change the name of the directory where your code is, such as in $HOME or $SCRATCH
+MYDIR=$HOME/crash-course-supercomputing/darts-suite/c
+#MYDIR=$HOME/crash-course-supercomputing/darts-suite/fortran
+#MYDIR=$SCRATCH/crash-course-supercomputing/darts-suite/c
+#MYDIR=$SCRATCH/crash-course-supercomputing/darts-suite/fortran
 MPIRUN=srun
 
 # Also change the scratch directory

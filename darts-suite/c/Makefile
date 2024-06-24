@@ -4,7 +4,7 @@ MPICC = cc
 MPIF90 = ftn
 
 OMP_FLAGS = -qopenmp 
-OPT_FLAGS = -g
+OPT_FLAGS = -g -Wall -Wextra -ansi
 
 OBJS = darts darts-mpi darts-collective darts-omp darts-hybrid
 

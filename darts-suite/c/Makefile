@@ -3,7 +3,7 @@ F90 = ftn
 MPICC = cc
 MPIF90 = ftn
 
-OMP_FLAGS = -qopenmp 
+OMP_FLAGS = -fopenmp 
 OPT_FLAGS = -g -Wall -Wextra -ansi
 
 OBJS = darts darts-mpi darts-collective darts-omp darts-hybrid

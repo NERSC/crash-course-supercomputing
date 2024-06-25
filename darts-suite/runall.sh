@@ -47,9 +47,20 @@ echo 'OpenMP only'
 for i in `seq 1 12`;
 do
     echo
-    echo 'OMP_NUM_THREADS =' $i './darts-mpi'
+    echo 'OMP_NUM_THREADS =' $i './darts-omp'
     export OMP_NUM_THREADS=$i 
     time ./darts-omp
+done
+
+echo
+echo 'OpenMP loop'
+for i in `seq 1 12`;
+do
+    echo
+    echo 'OMP_NUM_THREADS =' $i './darts-omp-loop'
+    echo 'this test is not bit-for-bit'
+    export OMP_NUM_THREADS=$i 
+    time ./darts-omp-loop
 done
 
 echo

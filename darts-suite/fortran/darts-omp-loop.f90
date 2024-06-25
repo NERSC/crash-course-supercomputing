@@ -1,18 +1,12 @@
-! Compute pi using OpenMP
-! First, the pseudorandom number generator
+! Compute pi using OpenMP "!$OMP loop"
 
-real function lcgrandom()
-   integer*8, parameter :: MULTIPLIER = 1366
-   integer*8, parameter :: ADDEND = 150889
-   integer*8, parameter :: PMOD = 714025
-   integer*8, save :: random_last = 0
-
-   integer*8 :: random_next = 0
-   random_next = mod((MULTIPLIER * random_last + ADDEND), PMOD)
-   random_last = random_next
-   lcgrandom = (1.0*random_next)/PMOD
-   return
-end function
+! Written by Helen He, June 2024
+! In this code, we are not using the pseudorandom number generator used in other codes,
+! instead we use a complete random number generator from Fortran intrinsic randon_number()
+! so we do not need to use an OMP critial region (which is not allowed to nest under omp loop)
+! to reproduce the randon seeds.  
+! so the final pi value is not bit-for-bit from other codes
+! Also, it gives a different pi value every time it runs
 
 ! Now, we compute pi
 program darts
@@ -20,7 +14,6 @@ program darts
    integer*8 :: num_trials = 1000000, i = 0, Ncirc = 0
    real :: pi = 0.0, x = 0.0, y = 0.0, r = 1.0
    real :: r2 = 0.0
-   real :: lcgrandom
    r2 = r*r
 
 !$OMP loop bind(thread) private(x,y) reduction(+:Ncirc)

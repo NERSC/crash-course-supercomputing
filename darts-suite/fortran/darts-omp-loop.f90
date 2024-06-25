@@ -1,7 +1,6 @@
-! Compute pi in serial
+! Compute pi using OpenMP
 ! First, the pseudorandom number generator
 
-! Now, we compute pi
 real function lcgrandom()
    integer*8, parameter :: MULTIPLIER = 1366
    integer*8, parameter :: ADDEND = 150889
@@ -13,8 +12,9 @@ real function lcgrandom()
    random_last = random_next
    lcgrandom = (1.0*random_next)/PMOD
    return
-end function lcgrandom
+end function
 
+! Now, we compute pi
 program darts
    implicit none
    integer*8 :: num_trials = 1000000, i = 0, Ncirc = 0
@@ -23,18 +23,21 @@ program darts
    real :: lcgrandom
    r2 = r*r
 
-   do i = 1, num_trials
-      x = lcgrandom()
-      y = lcgrandom()
-      if ((x*x + y*y) .le. r2) then
-          Ncirc = Ncirc+1
-      end if
-   end do
+!$OMP loop bind(thread) private(x,y) reduction(+:Ncirc)
+    do i = 1, num_trials
+    call random_number(x)
+    call random_number(y)
+    if ((x*x + y*y) .le. r2) then
+       Ncirc = Ncirc+1
+    end if
+    end do
+!$OMP end loop
 
-   pi = 4.0*((1.0*Ncirc)/(1.0*num_trials))
-   print*, '	'
-   print*, '	Computing pi in serial:		'
-   print*, ' 	For ', num_trials, ' trials, pi = ', pi
-   print*, '	'
+    pi = 4.0*((1.0*Ncirc)/(1.0*num_trials))
+    print*, '     '
+    print*, '     Computing pi using OpenMP:         '
+    print*, '     For ', num_trials, ' trials, pi = ', pi
+    print*, '     '
 
-end program darts
+end program
+

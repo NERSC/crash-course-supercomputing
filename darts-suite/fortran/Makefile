@@ -22,6 +22,9 @@ darts-collective: lcgenerator.o darts-collective.o
 darts-omp: darts-omp.o
 	${F90} ${OPT_FLAGS} -o darts-omp ${OMP_FLAGS} darts-omp.o
 
+darts-omp-loop: darts-oma-loopp.o
+	${F90} ${OPT_FLAGS} -o darts-omp ${OMP_FLAGS} darts-omp-loop.o
+
 darts-hybrid: lcgenerator.o darts-hybrid.o 
 	${MPIF90} ${OPT_FLAGS} -o darts-hybrid ${OMP_FLAGS} darts-hybrid.o lcgenerator.o
 
@@ -35,7 +38,7 @@ darts-mpi.o: lcgenerator.f90 darts-mpi.f90
 	${MPIF90} ${OPT_FLAGS} -c darts-mpi.f90
 
 darts-collective.o: lcgenerator.f90 darts-collective.f90
-	${MPIF90} ${OPT_FLAGS} -c darts-collective.f
+	${MPIF90} ${OPT_FLAGS} -c darts-collective.f90
 
 darts-omp.o: darts-omp.f90
 	${F90} ${OPT_FLAGS} -c darts-omp.f90

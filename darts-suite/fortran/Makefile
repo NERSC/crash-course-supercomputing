@@ -6,7 +6,7 @@ MPIF90 = ftn
 OMP_FLAGS = -fopenmp
 OPT_FLAGS = -g -Wall -Wextra
 
-OBJS = darts darts-mpi darts-collective darts-omp darts-hybrid 
+OBJS = darts darts-mpi darts-collective darts-omp darts-omp-loop darts-hybrid 
 
 all: ${OBJS}
 
@@ -22,8 +22,8 @@ darts-collective: lcgenerator.o darts-collective.o
 darts-omp: darts-omp.o
 	${F90} ${OPT_FLAGS} -o darts-omp ${OMP_FLAGS} darts-omp.o
 
-darts-omp-loop: darts-oma-loopp.o
-	${F90} ${OPT_FLAGS} -o darts-omp ${OMP_FLAGS} darts-omp-loop.o
+darts-omp-loop: darts-omp-loop.o
+	${F90} ${OPT_FLAGS} -o darts-omp-loop ${OMP_FLAGS} darts-omp-loop.o
 
 darts-hybrid: lcgenerator.o darts-hybrid.o 
 	${MPIF90} ${OPT_FLAGS} -o darts-hybrid ${OMP_FLAGS} darts-hybrid.o lcgenerator.o
@@ -42,6 +42,9 @@ darts-collective.o: lcgenerator.f90 darts-collective.f90
 
 darts-omp.o: darts-omp.f90
 	${F90} ${OPT_FLAGS} -c darts-omp.f90
+
+darts-omp-loop.o: darts-omp-loop.f90
+	${F90} ${OPT_FLAGS} -c darts-omp-loop.f90
 
 darts-hybrid.o: lcgenerator.f90 darts-hybrid.f90
 	${MPIF90} ${OPT_FLAGS} -c darts-hybrid.f90

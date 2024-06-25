@@ -16,13 +16,13 @@ program darts
    real :: r2 = 0.0
    r2 = r*r
 
-!$OMP loop bind(thread) private(x,y) reduction(+:Ncirc)
+!$OMP loop private(x,y) reduction(+:Ncirc)
     do i = 1, num_trials
-    call random_number(x)
-    call random_number(y)
-    if ((x*x + y*y) .le. r2) then
-       Ncirc = Ncirc+1
-    end if
+       call random_number(x)
+       call random_number(y)
+       if ((x*x + y*y) .le. r2) then
+          Ncirc = Ncirc+1
+       end if
     end do
 !$OMP end loop
 

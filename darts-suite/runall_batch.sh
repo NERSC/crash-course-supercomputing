@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -q regular
+#SBATCH -q regular    # can also use -q debug for faster queue turnaround
 #SBATCH -N 1
 #SBATCH -C cpu
 #SBATCH -t 00:30:00

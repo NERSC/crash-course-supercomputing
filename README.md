@@ -7,9 +7,9 @@ and the Pawsey Supercomputing Centre.
 To run interactively in a reservation at NERSC, use the following command:
 
 ```
-salloc -A trn0xx -N 1 -t 00:30:00 --reservation=res_name
+salloc -A proj_name -N 1 -t 00:30:00 --reservation=res_name
 ```
-where trn0xx is your NERSC project name, and res_name is the compute nodes reservation name.
+where proj_name is your NERSC project name (such as trn012), and res_name is the compute nodes reservation name (such as crash_course).
 
 To run via a batch script, use the sbatch command:
 ```

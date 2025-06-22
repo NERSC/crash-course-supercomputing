@@ -16,7 +16,8 @@ program darts
    real :: r2 = 0.0
    r2 = r*r
 
-!$OMP loop private(x,y) reduction(+:Ncirc)
+!$OMP parallel private(x,y) reduction(+:Ncirc)
+!$OMP loop
     do i = 1, num_trials
        call random_number(x)
        call random_number(y)
@@ -25,6 +26,7 @@ program darts
        end if
     end do
 !$OMP end loop
+!$OMP end parallel
 
     pi = 4.0*((1.0*Ncirc)/(1.0*num_trials))
     print*, '     '
@@ -33,4 +35,3 @@ program darts
     print*, '     '
 
 end program
-

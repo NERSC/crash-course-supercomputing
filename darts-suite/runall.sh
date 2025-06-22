@@ -7,7 +7,7 @@
 # salloc -t 00:30:00 -N 1 -q debug
 #
 
-EXECS="darts-mpi darts-collective darts-omp darts-hybrid"
+EXECS="darts-mpi darts-collective darts-omp darts-omp-loop darts-hybrid"
 # You will need to change the name of the directory where your code is, such as in $HOME or $SCRATCH
 #MYDIR=$HOME/crash-course-supercomputing/darts-suite/c
 #MYDIR=$HOME/crash-course-supercomputing/darts-suite/fortran

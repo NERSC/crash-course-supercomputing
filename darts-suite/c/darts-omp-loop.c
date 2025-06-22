@@ -22,9 +22,10 @@ int main(int argc, char **argv) {
   double pi, x, y;
   double r = 1.0; /* radius of circle */
   double r2 = r*r;
-#pragma omp parallel
+    
+#pragma omp parallel private(x,y) reduction(+:Ncirc)
 {
-#pragma omp loop private(x,y) reduction(+:Ncirc)
+#pragma omp loop
   for (i = 0; i < num_trials; i++) {
      x = (double) rand() / RAND_MAX;
      y = (double) rand() / RAND_MAX;

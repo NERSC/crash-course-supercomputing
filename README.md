@@ -16,4 +16,4 @@ To run via a batch script, use the sbatch command:
 sbatch runall_batch.sh
 ```
 
-Substituting the proper training project for `ntrainN` and proper reservation name for `res_name`, and we suggest to run part of the exercises from runall.sh at a time.
+Substituting the proper training project for `proj_name` and proper reservation name for `res_name`, and we suggest to run part of the exercises from runall.sh at a time.

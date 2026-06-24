@@ -1,24 +1,27 @@
-! Pseudorandom number generator
+! Thread-safe pseudorandom number generator
 ! (and a bad one at that)
-
 module lcgenerator
-   integer*8, save :: random_last = 0
-   contains
+    implicit none
+    private
+    
+    public :: lcgrandom_r
 
-      subroutine seed(s)
-         integer :: s
-         random_last = s
-      end subroutine
-
-     real function lcgrandom()
-        integer*8, parameter :: MULTIPLIER = 1366
-        integer*8, parameter :: ADDEND = 150889
-        integer*8, parameter :: PMOD = 714025
-  
-        integer*8 :: random_next = 0
-        random_next = mod((MULTIPLIER * random_last + ADDEND), PMOD)
+contains
+    ! Use pure subroutine to allow modifying random_last seed 
+    ! while maintaining thread-safety
+    pure subroutine lcgrandom_r(random_last, rand_val)
+        integer(kind=8), intent(inout) :: random_last
+        real(kind=8), intent(out)      :: rand_val
+        
+        integer(kind=8), parameter :: multiplier = 1366_8
+        integer(kind=8), parameter :: addend     = 150889_8
+        integer(kind=8), parameter :: pmod       = 714025_8
+        
+        integer(kind=8) :: random_next
+        
+        random_next = mod((multiplier * random_last + addend), pmod)
         random_last = random_next
-        lcgrandom = (1.0*random_next)/PMOD
-        return
-     end function
+        rand_val = real(random_next, 8) / real(pmod, 8)
+    end subroutine lcgrandom_r
+
 end module lcgenerator

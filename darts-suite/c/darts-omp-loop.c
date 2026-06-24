@@ -1,4 +1,4 @@
-/* Compute pi using OpenMP */
+/* Compute pi using OpenMP Loop */
 #include "lcgenerator.h"
 #include <omp.h>
 #include <stdio.h>

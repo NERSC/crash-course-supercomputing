@@ -1,40 +1,31 @@
 ! Compute pi in serial
-! First, the pseudorandom number generator
-
-! Now, we compute pi
-real function lcgrandom()
-   integer*8, parameter :: MULTIPLIER = 1366
-   integer*8, parameter :: ADDEND = 150889
-   integer*8, parameter :: PMOD = 714025
-   integer*8, save :: random_last = 0
-
-   integer*8 :: random_next = 0
-   random_next = mod((MULTIPLIER * random_last + ADDEND), PMOD)
-   random_last = random_next
-   lcgrandom = (1.0*random_next)/PMOD
-   return
-end function lcgrandom
-
 program darts
-   implicit none
-   integer*8 :: num_trials = 1000000, i = 0, Ncirc = 0
-   real :: pi = 0.0, x = 0.0, y = 0.0, r = 1.0
-   real :: r2 = 0.0
-   real :: lcgrandom
-   r2 = r*r
+    use lcgenerator ! Assumes module containing lcgrandom_r
+    implicit none
+    
+    integer(kind=8) :: num_trials = 1000000, Ncirc = 0
+    integer(kind=8) :: i, thread_seed, base_seed = 12345
+    real*8    :: pi, x, y, r = 1.0
+    real*8    :: r2
 
-   do i = 1, num_trials
-      x = lcgrandom()
-      y = lcgrandom()
-      if ((x*x + y*y) .le. r2) then
-          Ncirc = Ncirc+1
-      end if
-   end do
+    r2 = r * r
 
-   pi = 4.0*((1.0*Ncirc)/(1.0*num_trials))
-   print*, '	'
-   print*, '	Computing pi in serial:		'
-   print*, ' 	For ', num_trials, ' trials, pi = ', pi
-   print*, '	'
+    do i = 0, num_trials - 1
+        thread_seed = base_seed + (i * 2)
+        
+        call lcgrandom_r(thread_seed,x)
+        call lcgrandom_r(thread_seed,y)
+        
+        if ((x*x + y*y) <= r2) then
+            ncirc = ncirc + 1
+        end if
+    end do
+
+   pi = 4.0 * real(ncirc, 8) / real(num_trials, 8)
+
+    print*, '	'
+    print*, '	Computing pi in serial:		'
+    print '(/,A,I0,A,F10.6,/)', '        For ', num_trials, ' trials, pi = ', pi
+    print*, '	'
 
 end program darts

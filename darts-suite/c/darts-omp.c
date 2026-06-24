@@ -1,5 +1,4 @@
-/* Compute pi using OpenMP */
-/* Compute pi using OpenMP with standard work-sharing (omp for) */                 
+/* Compute pi using OpenMP */                
 #include "lcgenerator.h"
 #include <omp.h>
 #include <stdio.h>
@@ -14,7 +13,6 @@ int main(void) {
 
 #pragma omp parallel for reduction(+:Ncirc)
     for (long i = 0; i < num_trials; i++) {
-        /* Each iteration calculates its unique seed based on the absolute loop index */
         long thread_seed = base_seed + (i * 2L);
 
         double x = lcgrandom_r(&thread_seed);
